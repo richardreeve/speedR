@@ -23,3 +23,13 @@ ts1 <- structure(.Internal(Sys.time()))
 ## Calculate execution time
 ts <- ts1 - ts0
 ts
+
+## Now in parallel
+detectCores()
+
+## Set the number of workers we will use
+ncores <- detectCores()
+ncores <- detectCores() / 2
+ncores <- detectCores() - 1
+ncores <- detectCores() / 2 - 1
+ncores <- 4
