@@ -44,3 +44,15 @@ all.equal(as.numeric(ResultsNB),as.numeric(ResultsLNB))
 head(targetedSummary(target=9, LessNaiveBootAprof),10)
 head(targetedSummary(target=9, LessNaiveBootAprof, findParent = T),10)
 
+## Now using mean.default()
+source("FastBoot.r")
+
+Rprof(file="FastBoot.out", line.profiling=TRUE)
+set.seed(123)
+ResultsFB <- FastBoot(BioData, subR)
+Rprof(append=F)
+FastBootAprof <- aprof("FastBoot.r", "FastBoot.out")
+
+plot(FastBootAprof)
+head(targetedSummary(target=9, FastBootAprof),10)
+
