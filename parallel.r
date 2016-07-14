@@ -34,3 +34,33 @@ ncores <- detectCores() - 1
 ncores <- detectCores() / 2 - 1
 ncores <- 2
 
+## Split the jobs
+splitR <- table(cut(1:subR, ncores, labels=F))
+print(splitR)
+
+## save the start time
+tp0 <- structure(.Internal(Sys.time()))
+
+## initialize a list where we can store the id of each child
+children<-vector("list", ncores)
+
+## send the division of work in splitR to each of the cores
+for (i in 1:ncores)
+{
+  children[[i]] <- mcparallel(cmpfast(BioData, splitR[i]))
+}
+
+## Wait for the child processes named in "children" to finish
+results <- mccollect(children)
+
+## Record end time
+tp1 <- structure(.Internal(Sys.time()))
+
+## Calculate execution time
+tp <- tp1 - tp0
+tp
+## Speedup
+ts / tp
+## Efficiency
+ts / (ncores * tp)
+
