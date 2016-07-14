@@ -28,3 +28,19 @@ NaiveBootAprof <- aprof("NaiveBoot.r", "NaiveBoot.out")
 plot(NaiveBootAprof)
 head(targetedSummary(target=8, NaiveBootAprof),10)
 
+# Now preallocate the matrix
+source("LessNaiveBoot.r")
+
+Rprof(file="LessNaiveBoot.out", line.profiling=TRUE)
+set.seed(123)
+ResultsLNB <- LessNaiveBoot(BioData, subR)
+Rprof(append=F)
+LessNaiveBootAprof <- aprof("LessNaiveBoot.r", "LessNaiveBoot.out")
+
+plot(LessNaiveBootAprof)
+
+all.equal(as.numeric(ResultsNB),as.numeric(ResultsLNB))
+
+head(targetedSummary(target=9, LessNaiveBootAprof),10)
+head(targetedSummary(target=9, LessNaiveBootAprof, findParent = T),10)
+
