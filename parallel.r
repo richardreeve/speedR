@@ -69,7 +69,7 @@ ts / (ncores * tp)
 tmcl0 <- structure(.Internal(Sys.time()))
 
 ## send the division of work in splitR to each of the cores
-results <- mclapply(splitR, function(y) cmpfast(BioData, y))
+results <- mclapply(splitR, function(y) cmpfast(BioData, y), mc.cores=ncores)
 
 ## Record end time
 tmcl1 <- structure(.Internal(Sys.time()))
