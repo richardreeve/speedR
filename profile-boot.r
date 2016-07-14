@@ -17,3 +17,14 @@ SiteMeans <- function(x, d)
 subR <- 2000
 
 BtResults <- boot(BioData, SiteMeans, subR)
+
+source("NaiveBoot.r")
+Rprof(file="NaiveBoot.out", line.profiling=TRUE)
+set.seed(123)
+ResultsNB <- NaiveBoot(BioData, subR)
+Rprof(append=F)
+NaiveBootAprof <- aprof("NaiveBoot.r", "NaiveBoot.out")
+
+plot(NaiveBootAprof)
+head(targetedSummary(target=8, NaiveBootAprof),10)
+
