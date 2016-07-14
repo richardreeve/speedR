@@ -56,3 +56,14 @@ FastBootAprof <- aprof("FastBoot.r", "FastBoot.out")
 plot(FastBootAprof)
 head(targetedSummary(target=9, FastBootAprof),10)
 
+## Now no loops
+source("NoLoopsBoot.r")
+
+Rprof(file="NoLoopsBoot.out", line.profiling=TRUE)
+set.seed(123)
+ResultsNLB <- NoLoopsBoot(BioData, subR)
+Rprof(append=F)
+NoLoopsBootAprof <- aprof("NoLoopsBoot.r", "NoLoopsBoot.out")
+
+plot(NoLoopsBootAprof)
+head(targetedSummary(target=5, NoLoopsBootAprof),10)
