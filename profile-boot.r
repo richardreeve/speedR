@@ -67,3 +67,15 @@ NoLoopsBootAprof <- aprof("NoLoopsBoot.r", "NoLoopsBoot.out")
 
 plot(NoLoopsBootAprof)
 head(targetedSummary(target=5, NoLoopsBootAprof),10)
+
+summary(NoLoopsBootAprof)
+summary(FastBootAprof)
+summary(LessNaiveBootAprof)
+summary(NaiveBootAprof)
+
+system.time(ResultsFB <- FastBoot(BioData, subR))
+system.time(ResultsB <- boot(BioData, SiteMeans, subR))
+cmpSiteMeans <- compiler::cmpfun(SiteMeans)
+system.time(ResultsBc <- boot(BioData, cmpSiteMeans, subR))
+cmpfast <- compiler::cmpfun(FastBoot)
+system.time(ResultsFB <- cmpfast(BioData, subR))
