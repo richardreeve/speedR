@@ -32,4 +32,5 @@ ncores <- detectCores()
 ncores <- detectCores() / 2
 ncores <- detectCores() - 1
 ncores <- detectCores() / 2 - 1
-ncores <- 4
+ncores <- 2
+
