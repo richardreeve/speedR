@@ -64,3 +64,18 @@ ts / tp
 ## Efficiency
 ts / (ncores * tp)
 
+
+## save the start time
+tmcl0 <- structure(.Internal(Sys.time()))
+
+## send the division of work in splitR to each of the cores
+results <- mclapply(splitR, function(y) cmpfast(BioData, y))
+
+## Record end time
+tmcl1 <- structure(.Internal(Sys.time()))
+
+## Calculate execution time
+tmcl <- tmcl1 - tmcl0
+tmcl
+ts / tmcl
+ts / (ncores * tmcl)
